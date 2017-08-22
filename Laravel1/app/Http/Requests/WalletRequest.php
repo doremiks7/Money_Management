@@ -26,7 +26,7 @@ class WalletRequest extends Request
     {
         return [        
             'txtNameWallet' => 'string|required|unique:wallets,name,'.$this->id,
-            'txtAmountWallet' => 'integer|required'
+            'txtAmountWallet' => 'required'
         ];
     }
     public function messages()
@@ -35,7 +35,6 @@ class WalletRequest extends Request
             'txtNameWallet.unique' => 'this name is exist',
             'txtNameWallet.required' => 'please enter wallet name',
             'txtNameWallet.string' => 'this name must be a text',
-            'txtAmountWallet.integer' => 'amount must be positive integers',
             'txtAmountWallet.required' => 'please enter amount name'
         ];
     }

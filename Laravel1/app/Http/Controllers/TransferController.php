@@ -8,6 +8,7 @@ use Auth;
 use App\Wallet;
 use App\Transfer;
 use App\Http\Requests;
+use App\Http\Requests\TransferRequest;
 
 class TransferController extends Controller
 {
@@ -18,7 +19,7 @@ class TransferController extends Controller
         return view('wallet.transfer', compact('wl'));
     }
 
-    public function postTransfer(Request $request)
+    public function postTransfer(TransferRequest $request)
     {
         $id_from = $request->sltFrom;
         $id_to =   $request->sltTo;
@@ -38,5 +39,16 @@ class TransferController extends Controller
         $transfer->save();
 
         return redirect()->route('wallet.index')->with(['flash-level'=>'success', 'flash-message' => 'You have been tranfered successfuly']);
+    }
+
+    public function history_transfer(){
+        $data = DB::table('transfers')->where('user_id', Auth::user()->id)->get();
+        return view('wallet.transfer.list_history_transfer', compact('data'));
+    }
+
+    public function delete_history_transfer($id){
+        $transfer = Transfer::find($id);
+        $transfer->delete();
+        return back()->with(['flash-level' => 'success', 'flash-message'=>'You have been deleted transfer successfuly']);
     }
 }

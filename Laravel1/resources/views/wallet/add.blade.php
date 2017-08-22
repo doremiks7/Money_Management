@@ -2,7 +2,8 @@
 @section('noidung')
     <div class="panel panel-default col-md-offset-4 col-md-4" style="margin-top: 40px;">
       <table class="table table-bordered">
-        <thead>
+      <h2>List Wallet</h2>
+        <thead style="border-top: 1px solid #ddd;">
           <tr>
             <th>Tên ví</th>
             <th>Số tiền</th>
@@ -26,8 +27,8 @@
       <form action="{!! route('wallet.store') !!}" method="POST">
        {{ csrf_field() }}
         @include('blocks.error')
-       <p1 class="btn btn-primary "> Thêm mới </p1>
-       <div class="container col-md-12">
+        <h1> Thêm mới ví </h1>
+       <div class="container col-md-12" style="margin-top: 20px;">
           <div class="form-group">
             <label for="name">Tên ví</label>
             <input type="text" class="form-control" name="txtNameWallet">

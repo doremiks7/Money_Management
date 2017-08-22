@@ -1,16 +1,13 @@
 @extends('wallet.master')
 @section('noidung')
     <h2>List Category</h2>
-    <p><button class="btn btn-primary" style="float:left; margin-bottom: 10px;" onclick="window.location='{{URL::route('category.create')}}'"> Thêm mới </button></p>        
-    <p><a href="#" class="btn btn-primary" style="float:right; margin-bottom: 10px;" }}'">  </a></p>
+    <p><button class="btn btn-primary" style="float:right;" onclick="window.location='{{URL::route('category.create')}}'"> Thêm mới </button></p>
 
-
- 
     <table class="table table-border">
       <div class="tab">
+        <button class="tablinks btn btn-warning" onclick="document.getElementById('txtThu').style.display='block';document.getElementById('txtChi').style.display='block';">Tất cả danh mục</button>
         <button class="tablinks btn btn-success" onclick="openCity(event, 'txtThu')">Danh mục thu</button>
         <button class="tablinks btn btn-danger" onclick="openCity(event, 'txtChi')">Danh mục chi</button>
-        <button class="tablinks btn btn-warning" onclick="openCity(event, 'txtAll')">Tất cả danh mục</button>
       </div>
     </table>
 
@@ -26,8 +23,8 @@
             <thead>
               <tr>
                 <th>Tên danh mục</th>
-                <th>Loại</th>
                 <th>Danh mục cha</th>
+                <th>Tổng tiền giao dịch</th>
                 <th>Ngày tạo</th>
                 <th>Xóa</th>
                 <th>Sửa</th>
@@ -37,10 +34,9 @@
 
             @foreach($cate_thu as $value)
               <tr>
-                <td> {{$value->name}} </td>
-                <td>Thu</td>
+                <td><a style="color:#007E33;" href="{{url('transaction_belong_category', $value->id)}}">  {{$value->name}} </a> </td>
                 <td>
-                @if($value->parent_id == 0 || $value->parent_id == 1)
+                @if($value->parent_id == 0)
                     {!! "None" !!}
                 @else
                     <?php $parent = DB::table('categories')->where('id',$value->parent_id)->first();
@@ -48,6 +44,18 @@
                      ?>
                 @endif
                 </td>
+                <td> 
+
+                <?php $transaction_category = DB::table('transactions')->where('id_category', $value->id)->get();
+                      $total_amount_category = "0";
+                      foreach ($transaction_category as $temp) {
+                        $total_amount_category += $temp->amount;
+                      }
+                      
+                      echo "+".adddotstring($total_amount_category);
+                 ?>
+
+                 </td>
                 <td> {{$value->created_at}} </td>
                 <td>
                 <form method="POST" action="{{route('category.destroy', $value->id)}}">
@@ -72,8 +80,8 @@
           <thead>
             <tr>
                 <th>Tên danh mục</th>
-                <th>Loại</th>
                 <th>Danh mục cha</th>
+                <th> Tổng tiền giao dịch </th>
                 <th>Ngày tạo</th>
                 <th>Xóa</th>
                 <th>Sửa</th>
@@ -83,24 +91,34 @@
 
           @foreach($cate_chi as $value)
               <tr>
-                <td> {{$value->name}} </td>
-                <td>Chi</td>              
+                <td><a style="color:#d9534f;" href="{{url('transaction_belong_category', $value->id)}}">  {{$value->name}} </a> </td>             
                 <td>
-                  @if($value->parent_id == 0 || $value->parent_id == 1)
-                      {!! "None" !!}
+                  @if($value->parent_id == 0)
+                    {!! "None" !!}
                   @else
                       <?php $parent = DB::table('categories')->where('id',$value->parent_id)->first();
                           echo $parent->name;
                        ?>
                   @endif
                 </td>
+
+                <td> <?php $transaction_category = DB::table('transactions')->where('id_category', $value->id)->get();
+                      $total_amount_category = "0";
+                      foreach ($transaction_category as $temp) { 
+                        $total_amount_category += $temp->amount;
+                      }
+                      echo "-".adddotstring($total_amount_category);
+                 ?>
+
+                </td>
+
                 <td> {{$value->created_at}} </td>
                 <td>
                 <form method="POST" action="{{route('category.destroy', $value->id)}}">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                   <input type="hidden" name="_method" value="DELETE" />
                   <input type="hidden" name="id" value="{{ $value->id }}" />
-                  <button onclick="return ConfirmDelete()" type="submit" class="btn btn-warning"><i class="fa fa-trash-o  fa-fw"></i>Delete</button>
+                  <button onclick="return ConfirmDeleteCategory()" type="submit" class="btn btn-warning"><i class="fa fa-trash-o  fa-fw"></i>Delete</button>
                 </form>
                 </td>
                 <td><a href="{!! route('category.edit', $value->id) !!}" class="btn btn-info" role="button"><i class="fa fa-pencil fa-fw"></i>Edit</a></td>
@@ -112,9 +130,9 @@
 
 <!-- script to confirm delete -->
 <script type="text/javascript">
-  function ConfirmDelete()
+  function ConfirmDeleteCategory()
   {
-  var x = confirm("Are you sure you want to delete?");
+  var x = confirm("Are you sure you want to delete? All transaction of this category will be deleted together");
   if (x)
     return true;
   else

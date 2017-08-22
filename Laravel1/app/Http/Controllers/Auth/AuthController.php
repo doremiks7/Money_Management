@@ -131,7 +131,7 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
             'phone' => 'integer|min:10',
-            'avatar' => 'image'
+            'image' => 'image'
         ],
         [
             'name.required' => 'Need to A Name',
@@ -141,7 +141,7 @@ class AuthController extends Controller
             'password.min' =>  'Password must be longer 6 character',
             'password.confirmed' => 'Password cofirm is not match',
             'phone.min' => 'Phone must be longer 10 character',
-            'avatar.image' => 'It is not right picture'
+            'image.image' => 'It is not right picture'
         ]
 
         );

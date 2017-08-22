@@ -19,10 +19,9 @@
       </tr>
     </thead>
     <tbody>
-
     @foreach($wl as $value)
       <tr>
-        <td><a href="{{route('wallet_list', $value->id)}}">{{$value->name}} </a></td>
+        <td><a href="{{route('wallet_be_list', $value->id)}}" style="font-size: 30px;font-weight: bold;"> <img src="public/img/wallet/wallet.png" class="img-circle" size="14px;"> {{$value->name}} </a></td>
         <td class="color-money">{{adddotstring($value->amount)}} vnđ</td>
         <td>
          
@@ -32,14 +31,12 @@
           <input type="hidden" name="id" value="{{ $value->id }}" />
           <button onclick="return ConfirmDelete()" type="submit" class="btn btn-warning"><i class="fa fa-trash-o  fa-fw"></i>Delete</button>
         </form>
-
         </td>
         <td><a href="{!! route('wallet.edit', $value->id) !!}" class="btn btn-info" role="button"><i class="fa fa-pencil fa-fw"></i>Edit</a></td>
       </tr>
     @endforeach
     </tbody>
   </table>
-
 <script type="text/javascript">
   function ConfirmDelete()
   {

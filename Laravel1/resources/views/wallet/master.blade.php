@@ -39,6 +39,7 @@ ul li {
 
 a{
     color: #333;
+    text-decoration: none;
 }
 
 .color-money{
@@ -65,51 +66,23 @@ a{
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Admin Area</a>
+                <a class="navbar-brand" href="{{url('/')}}">Admin Area</a>
             </div>
             <!-- /.navbar-header -->
 
-            <ul class="nav navbar-top-links navbar-right">
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-smile-o"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
+        
             <!-- /.navbar-top-links -->
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <!-- /input-group -->
+                        
+                        <li>
+                            <a href="{{ route('wallet.index') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Wallet<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                            <a href="#" data-toggle="collapse" data-target="#wallet"><i class="fa fa-bar-chart-o fa-fw"></i> Wallet<span class="fa fa-angle-right" style="float:right;"></span></a>
+                            <ul id="wallet" class="nav nav-second-level collapse" aria-expanded="false" style>
                                 <li>
                                     <a href="{{ route('wallet.index') }}">List Wallet</a>
                                 </li>
@@ -120,8 +93,8 @@ a{
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-cube fa-fw"></i> Category<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                            <a href="#" data-toggle="collapse" data-target="#category"><i class="fa fa-cube fa-fw"></i> Category<span class="fa fa-angle-right " style="float:right;"></span></a>
+                            <ul id="category" class="nav nav-second-level collapse" aria-expanded="true" >
                                 <li>
                                     <a href="{{route('category.index')}}">List Category</a>
                                 </li>
@@ -132,13 +105,25 @@ a{
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Transaction<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                            <a href="#" data-toggle="collapse" data-target="#transaction"><i class="fa fa-users fa-fw"></i> Transaction<span class="fa fa-angle-right" style="float:right;"></span></a>
+                            <ul id="transaction" class="nav nav-second-level collapse" aria-expanded="true">
                                 <li>
-                                    <a href="#">List Transaction</a>
+                                    <a href="{{route('transaction.index')}}">List Transaction</a>
                                 </li>
                                 <li>
-                                    <a href="#">Add Transaction</a>
+                                    <a href="{{route('transaction.create')}}">Add Transaction</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="collapse" data-target="#transfer"><i class="fa fa-dollar"></i> Transfer <span class="fa fa-angle-right" style="float:right;"></span></a>
+                            <ul id="transfer" class="nav nav-second-level collapse" aria-expanded="true">
+                                <li>
+                                    <a href="{{route('historyTransfer')}}">List Transfer</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('getTransfer')}}">Transfer Money</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -179,6 +164,13 @@ a{
                 responsive: true
         });
     });
+
+    </script>
+    <script type="text/javascript">
+        function myfunction(name_id){
+            alert(name_id);
+        document.getElementById(name_id).style.display = "block";
+    }
     </script>
 
 <script type="text/javascript">

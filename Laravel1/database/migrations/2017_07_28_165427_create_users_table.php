@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('address');
             $table->string('avatar');
-            $table->integer('phone');
+            $table->string('phone');
             $table->string('sex');
             $table->date('date_birth');
             $table->boolean('activated')->default(false);

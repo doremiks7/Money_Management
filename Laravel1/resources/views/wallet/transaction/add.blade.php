@@ -1,12 +1,11 @@
 @extends('wallet.master')
 @section('noidung')
-
+  <h2> Thêm mới giao dịch</h2>
 	<table class="table">
-
       <form action="{{ route('transaction.store') }}" method="POST">
        {{ csrf_field() }}
         @include('blocks.error')
-       <p1 class="btn btn-primary " style="margin: 10px 0px 10px 10px;"> Thêm mới </p1>
+       
        <div class="container col-md-12">
           <div class="form-group">
             <label for="name"> Loại danh mục </label>

@@ -2,7 +2,8 @@
 @section('noidung')
     <div class="panel panel-default" style="margin: 20px 20px 20px 20px; display: inline-table;">
       <table class="table table-bordered">
-        <thead>
+      <h1 style="text-align: center;">List Category</h1>
+        <thead style="border-top: 1px solid #ddd;">
           <tr>
             <th>Tên danh mục</th>
             <th>Loại danh mục</th>
@@ -50,7 +51,7 @@
           <input type="hidden" name="_method" value="PUT" /> 
           <input type="hidden" name="id" value="{{ $data['id'] }}" /> 
       
-       <p1 class="btn btn-primary " style="margin: 10px 0px 10px 10px;"> Sửa danh mục </p1>
+       <h1 style="margin: 10px 0px 10px 10px;"> Sửa danh mục </h1>
        <div class="container col-md-12">
           <div class="form-group">
             <label for="name">Tên danh mục</label>
@@ -100,5 +101,29 @@
       </form>
       </table>
     </div>
+<script type="text/javascript">
+  $('.txtThu').hide();
+  $('.txtChi').hide();
+  $('select[name=sltKindCate]').change(function(){
 
+      if( $('select[name=sltKindCate]').val() == 1)
+        {
+          $('.txtThu').show();
+          $('.txtChi').hide();
+        }    
+             
+      
+      if($('select[name=sltKindCate]').val() == 2)
+      {  
+          $('.txtThu').hide();
+          $('.txtChi').show();
+      }
+      if( $('select[name=sltKindCate]').val() == 0)
+        {
+           $('.txtThu').hide();
+           $('.txtChi').hide();
+        }
+
+  });
+</script>
 @endsection

@@ -84,7 +84,7 @@ class WalletController extends Controller
 
         $wallet = Wallet::find($id)->where('user_id', Auth::user()->id)->first();    
         $wallet->name = $request->txtNameWallet;  
-        $wallet->amount = $request->txtAmountWallet;   
+        $wallet->amount = str_replace(',', '', $request->txtAmountWallet);   
 
         $wallet->save();
 

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class TransactionRequest extends Request
+class TransferRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,9 @@ class TransactionRequest extends Request
     public function rules()
     {
         return [
-            'sltCate' => 'not_in:0',
-            'txtAmount' => 'required',
-            'sltWallet' => 'not_in:0'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-
+            'sltFrom' => 'not_in:0',
+            'sltTo' => 'not_in:0',
+            'txtAmount' => 'required'
         ];
     }
 }

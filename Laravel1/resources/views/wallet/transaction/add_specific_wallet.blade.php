@@ -2,56 +2,48 @@
 @section('noidung')
 
 	<table class="table">
-      <form action="{{ route('update', [$transaction->id, $id_wallet]) }}" method="POST">
+      <form action="{{ route('wallet_be_store', $id_wallet) }}" method="POST">
        {{ csrf_field() }}
         @include('blocks.error')
-        	<input type="hidden" name="_method" value="PUT" /> 
-          <input type="hidden" name="id" value="{{ $transaction->id }}" /> 
-   
+
        <div class="container col-md-12">
           <div class="form-group">
             <label for="name"> Loại danh mục </label>
             <select class="form-control" name="sltKindCate" id="sltKindCate">
               <option value="0">Please Choose Category</option>
-              <?php $category = DB::table('categories')->where('id', $transaction->id_category)->first(); 
-                    $all_cate = DB::table('categories')->where('user_id', Auth::user()->id)->where('kind', $category->kind)->get();
-              ?>
-              @if($category->kind == 1)
-                <option value="1" class="thu" selected=""> Mục Thu </option>
-              @else
-                <option value="2" class="chi" selected=""> Mục Chi </option>
-              @endif
+              <option value="1" class="thu"> Mục Thu </option>
+              <option value="2" class="chi"> Mục Chi </option>
             </select>
           </div>
           <div class="form-group">
             <label for="name"> Chọn danh mục </label>
             <select class="form-control" name="sltCate" id="sltCate">
               <option value="0">Please Choose Category</option>
-                 @foreach($all_cate as $value)
-                      @if($transaction->id_category == $value->id)
-                        <option value="{{$value->id}}" class="txtThu" selected> {{$value->name}} </option>
-                      @else
-                        <option value="{{$value->id}}" class="txtThu" > {{$value->name}} </option>
-                      @endif
-                  @endforeach
+                @foreach($cate as $value)
+                  @if($value->kind==1)
+                    <option value="{{$value->id}}" class="txtThu">{{$value->name}}</option>
+                  @else
+                    <option value="{{$value->id}}" class="txtChi">{{$value->name}}</option>
+                  @endif
+                @endforeach
             </select>
           </div>
           
           <div class="form-group">
             <label for="name">Số tiền</label>
-            <input type="text" class="form-control color-money" name="txtAmount" id="txtAmount" value="{{$transaction->amount}}">
+            <input type="text" class="form-control color-money" name="txtAmount" id="txtAmount">
           </div>
           <div class="form-group">
             <label for="name">Ghi chú</label>
-            <input type="text" class="form-control" name="txtDescription" value="{{$transaction->description}}">
+            <input type="text" class="form-control" name="txtDescription">
           </div>
           <div class="form-group">
             <label for="name">Đi cùng ai</label>
-            <input type="text" class="form-control" name="txtWithWho" value="{{$transaction->with_who}}">
+            <input type="text" class="form-control" name="txtWithWho">
           </div>
           <div class="form-group">
             <label for="name">Ngày giao dịch</label>
-            <input type="date" class="form-control" name="txtTransactionDay" value="{{$transaction->created_at}}">
+            <input type="date" class="form-control" name="txtTransactionDay">
           </div>
           <div class="form-group">
             <label for="submit"></label>
@@ -64,17 +56,26 @@
 
 <!-- script to limit parent category -->
 <script type="text/javascript">
-
+  $('.txtThu').hide();
+  $('.txtChi').hide();
   $('select[name=sltKindCate').change(function(){
 
+      if( $('select[name=sltKindCate').val() == 1)
+        {
+             $('.txtThu').show();
+             $('.txtChi').hide();
+        }
+      if($('select[name=sltKindCate').val() == 2)
+      {
+        $('.txtThu').hide();
+        $('.txtChi').show();
+      }
       if( $('select[name=sltKindCate').val() == 0)
         {
              $('.txtThu').hide();
+             $('.txtChi').hide();
         }
-      if($('select[name=sltKindCate').val() != 0)
-      {
-        $('.txtThu').show();
-      }
+
   });
 </script>
 

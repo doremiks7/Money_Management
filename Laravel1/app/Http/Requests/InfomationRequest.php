@@ -26,7 +26,7 @@ class InfomationRequest extends Request
         return [
             'name' => 'required|max:255',
             'phone' => 'integer|min:10',
-            'avatar' => 'file|image'
+            'upd_avatar' => 'file|image'
         ];
     }
 
@@ -36,7 +36,7 @@ class InfomationRequest extends Request
             'name.required' => 'Need to A Name',
             'password.confirmed' => 'Password cofirm is not match',
             'phone.min' => 'Phone must be longer 10 character',
-            'avatar.image' => 'It is not right picture'
+            'upd_avatar.image' => 'It is not right picture'
         ];
     }
 }

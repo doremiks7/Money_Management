@@ -8,6 +8,7 @@ use DB;
 use App\Http\Requests;
 use App\Http\Requests\CategoryRequest;
 use App\Category;
+use App\Http\Controllers\TransactionController;
 
 class CategoryController extends Controller
 {
@@ -103,7 +104,25 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $cate = Category::findOrFail($id);
+        
+        $all_cate = DB::table('categories')->where('user_id', Auth::user()->id)->get();
+        foreach ($all_cate as $value) 
+        {
+            if($value->parent_id == $id)
+            {
+                return back()->with(['flash-level' => 'danger', 'flash-message' => 'You cant delete this category, please delete the sub of this category']);
+            }
+        }
+        
+        $transactionsDelete = DB::table('transactions')->where('id_category', $cate->id)->get();
+
+        foreach ($transactionsDelete as $value) {
+             (new TransactionController)->Transaction_Be_Delete($value->id, $value->id_wallet);
+        }
+       
         $cate->delete();
         return redirect()->route('category.index')->with(['flash-level' => 'success', 'flash-message' => 'You have been deleted successful']);
+
+        
     }
 }

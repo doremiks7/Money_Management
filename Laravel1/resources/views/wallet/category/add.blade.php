@@ -7,8 +7,9 @@
       <form action="{!! route('category.store') !!}" method="POST">
        {{ csrf_field() }}
         @include('blocks.error')
-       <p1 class="btn btn-primary " style="margin: 10px 0px 10px 10px;"> Thêm mới </p1>
+       
        <div class="container col-md-12">
+        <h1> Add Category </h1>
           <div class="form-group">
             <label for="name">Tên danh mục</label>
             <input type="text" class="form-control" name="txtNameCate">
@@ -23,8 +24,8 @@
           </div>
           <div class="form-group">
             <label for="name"> Danh mục cha </label>
-            <select class="form-control" name="sltParentCate" >
-              <option value="0">Please Choose Category</option>
+            <select class="form-control" name="sltParentCate" id="sltParentCate">
+              <option value="0" id="def">Please Choose Category</option>
                     @foreach($cate as $value)
                       @if($value->kind==1)
                         <option value="{{$value->id}}" class="txtThu">{{$value->name}}</option>
@@ -48,22 +49,24 @@
 <script type="text/javascript">
   $('.txtThu').hide();
   $('.txtChi').hide();
-  $('select[name=sltKindCate').change(function(){
+  $('select[name=sltKindCate]').change(function(){
 
-      if( $('select[name=sltKindCate').val() == 1)
+      if( $('select[name=sltKindCate]').val() == 1)
         {
-             $('.txtThu').show();
-             $('.txtChi').hide();
-        }
-      if($('select[name=sltKindCate').val() == 2)
-      {
-        $('.txtThu').hide();
-        $('.txtChi').show();
+          $('.txtThu').show();
+          $('.txtChi').hide();
+        }    
+             
+      
+      if($('select[name=sltKindCate]').val() == 2)
+      {  
+          $('.txtThu').hide();
+          $('.txtChi').show();
       }
-      if( $('select[name=sltKindCate').val() == 0)
+      if( $('select[name=sltKindCate]').val() == 0)
         {
-             $('.txtThu').hide();
-             $('.txtChi').hide();
+           $('.txtThu').hide();
+           $('.txtChi').hide();
         }
 
   });

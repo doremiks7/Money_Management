@@ -1,8 +1,9 @@
 @extends('wallet.master')
 @section('noidung')
-    <div class="panel panel-default col-md-offset-4 col-md-4" style="margin-top: 40px;">
+    <div class="panel panel-default col-md-offset-4 col-md-4" style="margin-top: 20px;">
       <table class="table table-bordered">
-        <thead>
+      <h2>List Wallet</h2>
+        <thead style="border-top: 1px solid #ddd;">
           <tr>
             <th>Tên ví</th>
             <th>Số tiền</th>
@@ -19,7 +20,7 @@
       </table>
     </div>
 
-    <div class="panel panel-default col-md-offset-4 col-md-4" style="margin-top: 100px;">
+    <div class="panel panel-default col-md-offset-4 col-md-4" style="margin-top: 60px;">
 
       <table class="table">
 
@@ -33,7 +34,7 @@
            @endif
           <input type="hidden" name="_method" value="PUT" /> 
           <input type="hidden" name="id" value="{{ $data['id'] }}" /> 
-       <p1 class="btn btn-primary " style="margin: 10px 0px 10px 10px;"> Sửa ví </p1>
+       <h1>Edit Wallet</h1>
        <div class="container col-md-12">
           <div class="form-group">
             <label for="name">Tên ví : {{$name_wallet_edit}}</label>
