@@ -1,0 +1,8 @@
+.aclass {
+	color: #fff;
+	margin-right: 40px;
+}
+
+.aclass a::hover{
+	color: #000;
+}
